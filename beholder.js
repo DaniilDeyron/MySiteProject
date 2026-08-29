@@ -1,75 +1,27 @@
 /* =========================================================
-   ЭЛЕМЕНТЫ
+   БЕХОЛДЕР — ИНТЕРАКТИВНОСТЬ
+   Пути к изображениям соответствуют твоим названиям файлов.
    ========================================================= */
 
-const stage =
-    document.getElementById(
-        "stage"
-    );
+const stage = document.getElementById("stage");
+const beholder = document.getElementById("beholder");
+const orbit = document.getElementById("orbit");
+const baseBody = document.getElementById("baseBody");
+const readingBody = document.getElementById("readingBody");
+const storiesBody = document.getElementById("storiesBody");
+const storyLaunch = document.getElementById("storyLaunch");
+const detail = document.getElementById("detail");
+const cursorOrb = document.getElementById("cursorOrb");
+const stateTitle = document.getElementById("stateTitle");
+const stateText = document.getElementById("stateText");
 
-const beholder =
-    document.getElementById(
-        "beholder"
-    );
+const eyes = [
+    ...document.querySelectorAll(".eye-slot")
+];
 
-const orbit =
-    document.getElementById(
-        "orbit"
-    );
-
-const baseBody =
-    document.getElementById(
-        "baseBody"
-    );
-
-const readingBody =
-    document.getElementById(
-        "readingBody"
-    );
-
-const storiesBody =
-    document.getElementById(
-        "storiesBody"
-    );
-
-const storyLaunch =
-    document.getElementById(
-        "storyLaunch"
-    );
-
-const detail =
-    document.getElementById(
-        "detail"
-    );
-
-const cursorOrb =
-    document.getElementById(
-        "cursorOrb"
-    );
-
-const stateTitle =
-    document.getElementById(
-        "stateTitle"
-    );
-
-const stateText =
-    document.getElementById(
-        "stateText"
-    );
-
-const eyes =
-    [
-        ...document.querySelectorAll(
-            ".eye-slot"
-        )
-    ];
-
-const nodes =
-    [
-        ...document.querySelectorAll(
-            ".node"
-        )
-    ];
+const nodes = [
+    ...document.querySelectorAll(".node")
+];
 
 
 /* =========================================================
@@ -77,142 +29,135 @@ const nodes =
    ========================================================= */
 
 baseBody.src =
-    "assets/beholder/beholder-base.png";
+    "assets/beholder/beholder_base.png";
 
 readingBody.src =
-    "assets/beholder/beholder-reading.png";
+    "assets/beholder/beholder_reading.png";
+
+storiesBody.src =
+    "assets/beholder/beholder_rage.png";
 
 
 /* =========================================================
-   ПЛАВНОЕ СЛЕЖЕНИЕ ГЛАЗ
+   КУРСОР
    ========================================================= */
 
-let targetMouseX =
+let mouseX =
     window.innerWidth / 2;
 
-let targetMouseY =
+let mouseY =
     window.innerHeight / 2;
 
+let smoothX =
+    mouseX;
 
-let smoothMouseX =
-    targetMouseX;
-
-let smoothMouseY =
-    targetMouseY;
+let smoothY =
+    mouseY;
 
 
-/*
-   Каждый eye получает собственное состояние.
-*/
+if (cursorOrb) {
+
+    document.addEventListener(
+        "mousemove",
+        (event) => {
+
+            mouseX =
+                event.clientX;
+
+            mouseY =
+                event.clientY;
+
+            cursorOrb.style.left =
+                `${mouseX}px`;
+
+            cursorOrb.style.top =
+                `${mouseY}px`;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ГЛАЗА
+   ========================================================= */
 
 const eyeState =
     eyes.map(
         () => ({
-            x:0,
-            y:0
+            x: 0,
+            y: 0
         })
     );
 
 
-document.addEventListener(
-    "mousemove",
-    event => {
+function animateEyes() {
 
-        targetMouseX =
-            event.clientX;
-
-        targetMouseY =
-            event.clientY;
-
-
-        cursorOrb.style.left =
-            targetMouseX + "px";
-
-        cursorOrb.style.top =
-            targetMouseY + "px";
-
-    }
-);
-
-
-/*
-   requestAnimationFrame делает движение
-   значительно живее, чем прямое изменение
-   позиции на каждом mousemove.
-*/
-
-function animateEyes(){
-
-    smoothMouseX +=
+    smoothX +=
         (
-            targetMouseX -
-            smoothMouseX
+            mouseX -
+            smoothX
         ) * 0.18;
 
 
-    smoothMouseY +=
+    smoothY +=
         (
-            targetMouseY -
-            smoothMouseY
+            mouseY -
+            smoothY
         ) * 0.18;
 
 
-    if(
+    const isIdle =
         !stage.classList.contains(
             "reading"
         ) &&
         !stage.classList.contains(
             "stories"
-        )
-    ){
+        );
+
+
+    if (isIdle) {
 
         eyes.forEach(
-            (eye,index) => {
+            (eye, index) => {
 
                 const rect =
                     eye.getBoundingClientRect();
 
 
-                const eyeCenterX =
+                const centerX =
                     rect.left +
                     rect.width / 2;
 
 
-                const eyeCenterY =
+                const centerY =
                     rect.top +
                     rect.height / 2;
 
 
                 const dx =
-                    smoothMouseX -
-                    eyeCenterX;
+                    smoothX -
+                    centerX;
 
 
                 const dy =
-                    smoothMouseY -
-                    eyeCenterY;
+                    smoothY -
+                    centerY;
 
 
                 const distance =
                     Math.hypot(
                         dx,
                         dy
-                    )
-                    ||
-                    1;
+                    ) || 1;
 
-
-                /*
-                   Максимум смещения
-                   внутри белка.
-
-                   12% — заметное, живое движение,
-                   но с большим запасом до края.
-                */
 
                 const maxMove =
-                    rect.width *
-                    0.12;
+                    rect.width * 0.12;
 
 
                 const factor =
@@ -224,19 +169,12 @@ function animateEyes(){
 
 
                 const desiredX =
-                    dx *
-                    factor;
+                    dx * factor;
 
 
                 const desiredY =
-                    dy *
-                    factor;
+                    dy * factor;
 
-
-                /*
-                   У каждого глаза
-                   своя скорость реакции.
-                */
 
                 const speed =
                     0.19 +
@@ -249,25 +187,15 @@ function animateEyes(){
                     (
                         desiredX -
                         eyeState[index].x
-                    )
-                    *
-                    speed;
+                    ) * speed;
 
 
                 eyeState[index].y +=
                     (
                         desiredY -
                         eyeState[index].y
-                    )
-                    *
-                    speed;
+                    ) * speed;
 
-
-                /*
-                   Движется весь готовый PNG:
-                   его белок, радужка и ЧЁРНЫЙ ЗРАЧОК
-                   остаются единым изображением.
-                */
 
                 const image =
                     eye.querySelector(
@@ -275,32 +203,23 @@ function animateEyes(){
                     );
 
 
-                const scale =
-                    Number(
-                        image
-                            .closest(".eye-slot")
-                            .classList.contains("eye1")
-                            ? 1
-                            : 1
-                    );
+                if (image) {
 
-
-                image.style.transform =
-                    `
-                    translate(
-                        calc(
-                            -50%
-                            +
-                            ${eyeState[index].x}px
-                        ),
-                        calc(
-                            -50%
-                            +
-                            ${eyeState[index].y}px
+                    image.style.transform =
+                        `
+                        translate(
+                            calc(
+                                -50% +
+                                ${eyeState[index].x}px
+                            ),
+                            calc(
+                                -50% +
+                                ${eyeState[index].y}px
+                            )
                         )
-                    )
-                    scale(${scale})
-                    `;
+                        `;
+
+                }
 
             }
         );
@@ -311,73 +230,120 @@ function animateEyes(){
     requestAnimationFrame(
         animateEyes
     );
+
 }
 
 
-animateEyes();
+requestAnimationFrame(
+    animateEyes
+);
 
 
 /* =========================================================
-   ВКЛАДКИ — ЖИВОЕ ДВИЖЕНИЕ ПО ИХ СОБСТВЕННОЙ ОСИ
+   КООРДИНАТЫ ВКЛАДОК
+   ========================================================= */
+
+nodes.forEach(
+    (node) => {
+
+        node.dataset.baseX =
+            parseFloat(
+                getComputedStyle(node)
+                    .getPropertyValue(
+                        "--base-x"
+                    )
+            ) || 0;
+
+
+        node.dataset.baseY =
+            parseFloat(
+                getComputedStyle(node)
+                    .getPropertyValue(
+                        "--base-y"
+                    )
+            ) || 0;
+
+    }
+);
+
+
+/* =========================================================
+   ЖИВОЕ ДВИЖЕНИЕ ВКЛАДОК
    ========================================================= */
 
 let stageMouseX = 0;
 let stageMouseY = 0;
 let stageHasPointer = false;
 
+
 stage.addEventListener(
     "mousemove",
-    event => {
+    (event) => {
+
         const rect =
             stage.getBoundingClientRect();
+
 
         stageMouseX =
             event.clientX -
             rect.left -
             rect.width / 2;
 
+
         stageMouseY =
             event.clientY -
             rect.top -
             rect.height / 2;
 
+
         stageHasPointer = true;
+
     }
 );
+
 
 stage.addEventListener(
     "mouseleave",
     () => {
+
         stageHasPointer = false;
+
         stageMouseX = 0;
         stageMouseY = 0;
+
     }
 );
 
 
-/*
-   Таблички постоянно слегка «живут» вокруг своей оси.
-   Амплитуда небольшая, поэтому попасть по ним по-прежнему легко.
-   У каждой вкладки своя скорость и фаза, чтобы они не двигались строем.
-*/
-
-function animateNodes(time){
+function animateNodes(time) {
 
     const seconds =
         time / 1000;
 
+
     nodes.forEach(
-        (node,index) => {
+        (node, index) => {
+
+            if (
+                node.classList.contains(
+                    "active"
+                )
+            ) {
+                return;
+            }
+
 
             const baseX =
                 Number(
                     node.dataset.baseX
                 );
 
+
             const baseY =
                 Number(
                     node.dataset.baseY
                 );
+
 
             const angle =
                 Math.atan2(
@@ -385,103 +351,100 @@ function animateNodes(time){
                     baseX
                 );
 
-            /*
-               Индивидуальная скорость.
-            */
 
             const speed =
                 0.72 +
                 index * 0.055;
 
+
             const phase =
                 index * 1.37;
 
-            /*
-               Тангенциальное смещение.
-            */
 
             const idle =
                 Math.sin(
-                    seconds * speed +
+                    seconds *
+                    speed +
                     phase
                 ) *
                 (
                     9 +
-                    (index % 3) * 2.5
+                    (
+                        index % 3
+                    ) * 2.5
                 );
 
-            /*
-               Второе лёгкое колебание.
-            */
 
             const secondary =
                 Math.sin(
-                    seconds * (speed * 1.73) +
-                    phase * 0.63
-                ) *
-                2.8;
+                    seconds *
+                    speed *
+                    1.73 +
+                    phase *
+                    0.63
+                ) * 2.8;
+
 
             let pointerTangent = 0;
 
-            if(stageHasPointer){
 
-                const tangentForce =
+            if (stageHasPointer) {
+
+                pointerTangent =
                     Math.max(
                         -28,
                         Math.min(
                             28,
                             stageMouseY / 12
                         )
+                    ) *
+                    (
+                        0.20 +
+                        index * 0.012
                     );
 
-                pointerTangent =
-                    tangentForce *
-                    (
-                        .20 +
-                        index * .012
-                    );
             }
+
 
             const tangent =
                 idle +
                 secondary +
                 pointerTangent;
 
+
             const x =
-                baseX +
-                -Math.sin(angle) *
+                baseX -
+                Math.sin(angle) *
                 tangent;
+
 
             const y =
                 baseY +
                 Math.cos(angle) *
                 tangent;
 
-            /*
-               Не трогаем координаты активной вкладки.
-            */
 
-            if(!node.classList.contains("active")){
+            node.style.setProperty(
+                "--x",
+                `${x.toFixed(2)}px`
+            );
 
-                node.style.setProperty(
-                    "--x",
-                    x.toFixed(2) +
-                    "px"
-                );
 
-                node.style.setProperty(
-                    "--y",
-                    y.toFixed(2) +
-                    "px"
-                );
-            }
+            node.style.setProperty(
+                "--y",
+                `${y.toFixed(2)}px`
+            );
+
         }
     );
+
 
     requestAnimationFrame(
         animateNodes
     );
+
 }
+
 
 requestAnimationFrame(
     animateNodes
@@ -489,253 +452,10 @@ requestAnimationFrame(
 
 
 /* =========================================================
-   БАЗОВЫЕ КООРДИНАТЫ
-   ========================================================= */
-
-nodes.forEach(
-    node => {
-
-        const x =
-            parseFloat(
-                getComputedStyle(
-                    node
-                )
-                .getPropertyValue(
-                    "--base-x"
-                )
-            );
-
-
-        const y =
-            parseFloat(
-                getComputedStyle(
-                    node
-                )
-                .getPropertyValue(
-                    "--base-y"
-                )
-            );
-
-
-        node.dataset.baseX =
-            x;
-
-        node.dataset.baseY =
-            y;
-
-    }
-);
-
-
-/* =========================================================
-   ТРЕТЬЕ СОСТОЯНИЕ
-   ========================================================= */
-
-function storiesOn(){
-
-    stage.classList.remove(
-        "reading"
-    );
-
-    stage.classList.add(
-        "stories"
-    );
-
-
-    nodes.forEach(
-        n =>
-            n.classList.remove(
-                "active"
-            )
-    );
-
-
-    storyLaunch.classList.add(
-        "active"
-    );
-
-
-    state.textContent =
-        "НАВСТРЕЧУ К ИСТОРИЯМ";
-
-
-    detail.classList.remove(
-        "show"
-    );
-}
-
-
-function resetToObservation(){
-
-    stage.classList.remove(
-        "reading",
-        "stories"
-    );
-
-
-    nodes.forEach(
-        n =>
-            n.classList.remove(
-                "active"
-            )
-    );
-
-
-    storyLaunch.classList.remove(
-        "active"
-    );
-
-
-    state.textContent =
-        "ОН НАБЛЮДАЕТ";
-
-
-    detail.classList.remove(
-        "show"
-    );
-}
-
-
-/* =========================================================
-   НАВЕДЕНИЕ
-   ========================================================= */
-
-function chooseNode(
-    node
-){
-
-    nodes.forEach(
-        n =>
-            n.classList.remove(
-                "active"
-            )
-    );
-
-
-    node.classList.add(
-        "active"
-    );
-
-
-    /*
-       Выбранная вкладка
-       отъезжает наружу.
-    */
-
-    const x =
-        Number(
-            node.dataset.baseX
-        );
-
-    const y =
-        Number(
-            node.dataset.baseY
-        );
-
-
-    const distance =
-        Math.hypot(
-            x,
-            y
-        )
-        ||
-        1;
-
-
-    const push =
-        46;
-
-
-    node.style.setProperty(
-        "--x",
-        (
-            x
-            +
-            x / distance *
-            push
-        )
-        + "px"
-    );
-
-
-    node.style.setProperty(
-        "--y",
-        (
-            y
-            +
-            y / distance *
-            push
-        )
-        + "px"
-    );
-
-
-    /*
-       Переход бехолдера
-       в состояние чтения.
-    */
-
-    stage.classList.add(
-        "reading"
-    );
-
-
-    document.body.classList.add(
-        "hovering"
-    );
-
-
-    stateTitle.textContent =
-        "Он читает";
-
-
-    stateText.textContent =
-        "Выбранный раздел привлёк его внимание. Он закрыл пасть и принялся читать.";
-
-
-    /*
-       Наполняем сводку.
-    */
-
-    detail.querySelector(
-        ".detail-title"
-    ).textContent =
-        node.dataset.title;
-
-
-    detail.querySelector(
-        ".detail-text"
-    ).textContent =
-        node.dataset.text;
-
-
-    detail.querySelector(
-        ".detail-cta"
-    ).textContent =
-        node.dataset.cta
-        +
-        " →";
-
-
-    positionDetail(
-        node
-    );
-
-
-    detail.classList.add(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
    ПОЗИЦИЯ СВОДКИ
    ========================================================= */
 
-function positionDetail(
-    node
-){
+function positionDetail(node) {
 
     const rect =
         stage.getBoundingClientRect();
@@ -754,6 +474,9 @@ function positionDetail(
             node.style.getPropertyValue(
                 "--x"
             )
+        ) ||
+        Number(
+            node.dataset.baseX
         );
 
 
@@ -762,6 +485,9 @@ function positionDetail(
             node.style.getPropertyValue(
                 "--y"
             )
+        ) ||
+        Number(
+            node.dataset.baseY
         );
 
 
@@ -785,9 +511,7 @@ function positionDetail(
     let top;
 
 
-    if(
-        y < -110
-    ){
+    if (y < -110) {
 
         left =
             cx +
@@ -803,9 +527,8 @@ function positionDetail(
             24;
 
     }
-    else if(
-        x > 110
-    ){
+
+    else if (x > 110) {
 
         left =
             cx +
@@ -820,9 +543,8 @@ function positionDetail(
             nh / 2;
 
     }
-    else if(
-        y > 110
-    ){
+
+    else if (y > 110) {
 
         left =
             cx +
@@ -837,7 +559,8 @@ function positionDetail(
             24;
 
     }
-    else{
+
+    else {
 
         left =
             cx +
@@ -880,26 +603,186 @@ function positionDetail(
 
 
     detail.style.left =
-        left + "px";
+        `${left}px`;
 
 
     detail.style.top =
-        top + "px";
+        `${top}px`;
+
 }
 
 
 /* =========================================================
-   ВЫХОД
+   ВОЗВРАТ ВКЛАДКИ
    ========================================================= */
 
-function restoreNode(
-    node
-){
+function resetNodePosition(node) {
+
+    node.style.setProperty(
+        "--x",
+        `${node.dataset.baseX}px`
+    );
+
+
+    node.style.setProperty(
+        "--y",
+        `${node.dataset.baseY}px`
+    );
+
+}
+
+
+/* =========================================================
+   ОБЫЧНОЕ СОСТОЯНИЕ
+   ========================================================= */
+
+function resetToObservation() {
+
+    stage.classList.remove(
+        "reading",
+        "stories"
+    );
+
+
+    nodes.forEach(
+        (node) => {
+
+            node.classList.remove(
+                "active"
+            );
+
+            resetNodePosition(
+                node
+            );
+
+        }
+    );
+
+
+    storyLaunch.classList.remove(
+        "active"
+    );
+
+
+    detail.classList.remove(
+        "show"
+    );
+
+
+    document.body.classList.remove(
+        "hovering"
+    );
+
+
+    stateTitle.textContent =
+        "Он наблюдает";
+
+
+    stateText.textContent =
+        "Все десять глаз следят за каждым движением.";
+
+}
+
+
+/* =========================================================
+   НАВСТРЕЧУ К ИСТОРИЯМ
+   ========================================================= */
+
+function storiesOn() {
+
+    stage.classList.remove(
+        "reading"
+    );
+
+
+    stage.classList.add(
+        "stories"
+    );
+
+
+    nodes.forEach(
+        (node) => {
+
+            node.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    storyLaunch.classList.add(
+        "active"
+    );
+
+
+    detail.classList.remove(
+        "show"
+    );
+
+
+    document.body.classList.add(
+        "hovering"
+    );
+
+
+    stateTitle.textContent =
+        "Навстречу к историям";
+
+
+    stateText.textContent =
+        "Он перестал наблюдать и готов рассказать свою историю.";
+
+}
+
+
+/* =========================================================
+   ВЫБОР ВКЛАДКИ
+   ========================================================= */
+
+function chooseNode(node) {
+
+    nodes.forEach(
+        (item) => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    storyLaunch.classList.remove(
+        "active"
+    );
+
+
+    node.classList.add(
+        "active"
+    );
+
+
+    stage.classList.remove(
+        "stories"
+    );
+
+
+    stage.classList.add(
+        "reading"
+    );
+
+
+    document.body.classList.add(
+        "hovering"
+    );
+
 
     const x =
         Number(
             node.dataset.baseX
         );
+
 
     const y =
         Number(
@@ -907,35 +790,87 @@ function restoreNode(
         );
 
 
+    const distance =
+        Math.hypot(
+            x,
+            y
+        ) || 1;
+
+
+    const push = 46;
+
+
     node.style.setProperty(
         "--x",
-        x + "px"
+        `${x + x / distance * push}px`
     );
 
 
     node.style.setProperty(
         "--y",
-        y + "px"
+        `${y + y / distance * push}px`
+    );
+
+
+    stateTitle.textContent =
+        "Он читает";
+
+
+    stateText.textContent =
+        "Выбранный раздел привлёк его внимание. Он закрыл пасть и принялся читать.";
+
+
+    detail.querySelector(
+        ".detail-title"
+    ).textContent =
+        node.dataset.title ||
+        "Раздел";
+
+
+    detail.querySelector(
+        ".detail-text"
+    ).textContent =
+        node.dataset.text ||
+        "Подробнее об этом разделе.";
+
+
+    detail.querySelector(
+        ".detail-cta"
+    ).textContent =
+        `${
+            node.dataset.cta ||
+            "Открыть раздел"
+        } →`;
+
+
+    positionDetail(
+        node
+    );
+
+
+    detail.classList.add(
+        "show"
     );
 
 }
 
 
-/*
-   Не возвращаем состояние,
-   пока мышь ещё находится
-   над соседней кнопкой.
-*/
+/* =========================================================
+   НАВЕДЕНИЕ И КЛИКИ
+   ========================================================= */
 
 nodes.forEach(
-    node => {
+    (node) => {
 
         node.addEventListener(
             "mouseenter",
-            () =>
+            () => {
+
                 chooseNode(
                     node
-                )
+                );
+
+            }
         );
 
 
@@ -943,63 +878,43 @@ nodes.forEach(
             "mouseleave",
             () => {
 
-                /*
-                   Даём соседней кнопке
-                   успеть перехватить курсор.
-                */
-
                 setTimeout(
                     () => {
 
-                        const hovered =
+                        const hoveredNode =
                             nodes.find(
-                                n =>
-                                    n.matches(
+                                (item) =>
+                                    item.matches(
                                         ":hover"
                                     )
                             );
 
 
-                        if(
-                            !hovered
-                        ){
+                        if (
+                            !hoveredNode &&
+                            !storyLaunch.matches(
+                                ":hover"
+                            )
+                        ) {
 
-                            node.classList.remove(
-                                "active"
-                            );
-
-
-                            stage.classList.remove(
-                                "reading"
-                            );
-
-
-                            detail.classList.remove(
-                                "show"
-                            );
-
-
-                            document.body.classList.remove(
-                                "hovering"
-                            );
-
-
-                            stateTitle.textContent =
-                                "Он наблюдает";
-
-
-                            stateText.textContent =
-                                "Все десять глаз следят за курсором.";
-
-
-                            nodes.forEach(
-                                restoreNode
-                            );
+                            resetToObservation();
 
                         }
 
                     },
-                    30
+                    40
+                );
+
+            }
+        );
+
+
+        node.addEventListener(
+            "click",
+            () => {
+
+                chooseNode(
+                    node
                 );
 
             }
@@ -1010,27 +925,7 @@ nodes.forEach(
 
 
 /* =========================================================
-   TOUCH / PHONE
-   ========================================================= */
-
-nodes.forEach(
-    node => {
-
-        node.addEventListener(
-            "click",
-            () =>
-                chooseNode(
-                    node
-                )
-        );
-
-    }
-);
-
-
-
-/* =========================================================
-   КНОПКА «НАВСТРЕЧУ К ИСТОРИЯМ»
+   КНОПКА ИСТОРИЙ
    ========================================================= */
 
 storyLaunch.addEventListener(
@@ -1038,10 +933,18 @@ storyLaunch.addEventListener(
     storiesOn
 );
 
+
 storyLaunch.addEventListener(
     "focus",
     storiesOn
 );
+
+
+storyLaunch.addEventListener(
+    "click",
+    storiesOn
+);
+
 
 storyLaunch.addEventListener(
     "mouseleave",
@@ -1052,13 +955,16 @@ storyLaunch.addEventListener(
 
                 const hoveredNode =
                     nodes.find(
-                        n =>
-                            n.matches(
+                        (node) =>
+                            node.matches(
                                 ":hover"
                             )
                     );
 
-                if(!hoveredNode){
+
+                if (
+                    !hoveredNode
+                ) {
 
                     resetToObservation();
 
@@ -1071,14 +977,22 @@ storyLaunch.addEventListener(
     }
 );
 
-storyLaunch.addEventListener(
-    "blur",
-    resetToObservation
-);
 
 storyLaunch.addEventListener(
-    "click",
-    storiesOn
+    "blur",
+    () => {
+
+        if (
+            !storyLaunch.matches(
+                ":hover"
+            )
+        ) {
+
+            resetToObservation();
+
+        }
+
+    }
 );
 
 
@@ -1090,17 +1004,37 @@ window.addEventListener(
     "resize",
     () => {
 
-        smoothMouseX =
-            window.innerWidth /
-            2;
+        smoothX =
+            window.innerWidth / 2;
 
-        smoothMouseY =
-            window.innerHeight /
-            2;
+
+        smoothY =
+            window.innerHeight / 2;
+
 
         nodes.forEach(
-            restoreNode
+            resetNodePosition
         );
+
+
+        const activeNode =
+            nodes.find(
+                (node) =>
+                    node.classList.contains(
+                        "active"
+                    )
+            );
+
+
+        if (
+            activeNode
+        ) {
+
+            positionDetail(
+                activeNode
+            );
+
+        }
 
     }
 );
