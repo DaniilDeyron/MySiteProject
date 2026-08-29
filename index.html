@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мир мастера</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<section class="hero" id="hero">
+<img src="assets/hero.png" alt="Мастер приглашает путника в свой мир" class="hero-image">
+<div class="hero-overlay"></div>
+<div class="scroll-darkness" id="scrollDarkness"></div>
+
+<!-- ТУМАН С ДВУХ СТОРОН -->
+<div class="side-fog" id="sideFog" aria-hidden="true">
+    <div class="fog-cloud fog-left"></div>
+    <div class="fog-cloud fog-right"></div>
+    <div class="fog-particles fog-particles-left"></div>
+    <div class="fog-particles fog-particles-right"></div>
+</div>
+
+<div class="speech speech-left">
+<h1>Путник, ты забрёл далеко от дороги...</h1>
+<div class="ornament"></div>
+<p>Не знаю, что привело тебя сюда. Любопытство? Жажда приключений? Или, быть может, ты просто ищешь место, где можно оставить свой след в истории.</p>
+</div>
+
+<div class="magic-welcome">
+<div class="magic-sphere"></div>
+<div class="magic-energy"></div>
+<div class="main-rift"><div class="rift-core"></div></div>
+<div class="fracture fracture-1"></div><div class="fracture fracture-2"></div><div class="fracture fracture-3"></div><div class="fracture fracture-4"></div><div class="fracture fracture-5"></div><div class="fracture fracture-6"></div>
+<div class="shard shard-1"></div><div class="shard shard-2"></div><div class="shard shard-3"></div><div class="shard shard-4"></div><div class="shard shard-5"></div><div class="shard shard-6"></div>
+<div class="gold-fracture gold-1"></div><div class="gold-fracture gold-2"></div><div class="gold-fracture gold-3"></div><div class="gold-fracture gold-4"></div>
+<span class="magic-star star-1">✦</span><span class="magic-star star-2">✦</span><span class="magic-star star-3">✦</span><span class="magic-star star-4">✦</span><span class="magic-star star-5">✦</span><span class="magic-star star-6">✦</span>
+<div class="welcome-title">Добро<br>Пожаловать</div>
+</div>
+
+<div class="speech speech-right">
+<p>Как бы то ни было — я рад тебя видеть.</p>
+<div class="ornament"></div>
+<div class="master-label">Твой мастер</div>
+<div class="master-name">Даниил</div>
+</div>
+
+<div class="scroll-hint"><span>Путь продолжается</span><div class="arrow"></div></div>
+</section>
+
+<section class="about-section" id="about">
+<div class="about-section-glow"></div>
+<div class="section-content">
+<div class="section-decoration">✦</div>
+<div class="section-label">Глава первая</div>
+<h2>Но прежде чем отправиться дальше...</h2>
+<div class="section-line"></div>
+<p>Позволь мне сначала рассказать о себе. О том, каким я вижу игру, какие истории люблю создавать и почему за этим миром стоит гораздо больше, чем просто набор правил и бросков кубиков.</p>
+</div>
+</section>
+</main>
+
+<script>
+
+const hero =
+    document.getElementById("hero");
+
+const scrollDarkness =
+    document.getElementById("scrollDarkness");
+
+
+function updateTransition() {
+
+    const rect =
+        hero.getBoundingClientRect();
+
+    const heroHeight =
+        hero.offsetHeight;
+
+    let progress =
+        -rect.top /
+        (heroHeight * 0.78);
+
+    progress =
+        (progress - 0.06) /
+        0.94;
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                progress
+            )
+        );
+
+    scrollDarkness.style.setProperty(
+        "--dark-progress",
+        progress.toFixed(3)
+    );
+}
+
+window.addEventListener(
+    "scroll",
+    updateTransition,
+    { passive: true }
+);
+
+window.addEventListener(
+    "resize",
+    updateTransition
+);
+
+updateTransition();
+
+</script>
+</body>
+</html>

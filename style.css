@@ -1,0 +1,1867 @@
+/* =====================================================
+   ШРИФТЫ
+   ===================================================== */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Forum&display=swap'
+);
+
+
+/* =====================================================
+   ОСНОВА
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: #030304;
+
+    color: #eee4d1;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   ПЕРВАЯ СТРАНИЦА
+   ===================================================== */
+
+.hero {
+
+    position: relative;
+
+    width: 100%;
+
+    overflow: visible;
+
+    background: #050506;
+}
+
+
+/* =====================================================
+   ИЗОБРАЖЕНИЕ
+   ===================================================== */
+
+.hero-image {
+
+    position: relative;
+
+    z-index: 0;
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    max-width: none;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   БАЗОВОЕ ЗАТЕМНЕНИЕ
+   ===================================================== */
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.20),
+            rgba(0, 0, 0, 0.02) 42%,
+            rgba(0, 0, 0, 0.02) 62%,
+            rgba(0, 0, 0, 0.18)
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.05),
+            transparent 48%,
+            rgba(0, 0, 0, 0.42)
+        );
+}
+
+
+/* =====================================================
+   ПОЛНОЕ ЗАТЕМНЕНИЕ ПРИ ПРОКРУТКЕ
+   ===================================================== */
+
+.scroll-darkness {
+
+    --dark-progress: 0;
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.10),
+            rgba(0, 0, 0, 0.35) 35%,
+            rgba(0, 0, 0, 0.72) 72%,
+            rgba(0, 0, 0, 0.98) 100%
+        );
+
+    opacity:
+        var(--dark-progress);
+
+    transition:
+        opacity 0.06s linear;
+}
+
+
+/*
+   Когда scroll-darkness достигает 1,
+   первая сцена практически полностью
+   становится чёрной.
+*/
+
+
+/* =====================================================
+   ОБЩИЕ ТЕКСТОВЫЕ БЛОКИ
+   ===================================================== */
+
+.speech {
+
+    position: absolute;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    animation:
+        speechAppear 1.5s ease forwards;
+
+    text-shadow:
+
+        0 2px 6px
+        rgba(0, 0, 0, 0.95),
+
+        0 0 18px
+        rgba(0, 0, 0, 0.85);
+}
+
+
+/* =====================================================
+   ЛЕВАЯ ФРАЗА
+   ===================================================== */
+
+.speech-left {
+
+    top: 13%;
+
+    left: 7%;
+
+    width: 60%;
+
+    text-align: left;
+}
+
+
+.speech-left h1 {
+
+    display: inline-block;
+
+    width: max-content;
+
+    margin: 0;
+
+    white-space: nowrap;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            24px,
+            2.15vw,
+            38px
+        );
+
+    font-weight: 600;
+
+    font-style: italic;
+
+    line-height: 1;
+
+    letter-spacing: 0.005em;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #fffdf3 0%,
+            #f9edd2 55%,
+            #dfc68d 100%
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+
+        0 0 1px #f0d08a,
+
+        1px 0 0 #b38a43,
+
+        -1px 0 0 #b38a43,
+
+        0 1px 0 #b38a43,
+
+        0 -1px 0 #b38a43,
+
+        0 2px 6px
+        rgba(0, 0, 0, 0.95),
+
+        0 0 14px
+        rgba(218, 179, 103, 0.35);
+}
+
+
+/* =====================================================
+   ЛЕВЫЙ ОСНОВНОЙ ТЕКСТ
+   ===================================================== */
+
+.speech-left p {
+
+    margin: 20px 0 0;
+
+    max-width: 580px;
+
+    color: #eee5d8;
+
+    font-size:
+        clamp(
+            16px,
+            1.2vw,
+            21px
+        );
+
+    font-weight: 500;
+
+    font-style: italic;
+
+    line-height: 1.45;
+}
+
+
+/* =====================================================
+   ДЕКОРАТИВНАЯ ЛИНИЯ
+   ===================================================== */
+
+.ornament {
+
+    position: relative;
+
+    display: block;
+
+    width: 240px;
+
+    height: 12px;
+
+    margin-top: 13px;
+}
+
+
+.ornament::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 50%;
+
+    width: 100%;
+
+    height: 1px;
+
+    transform:
+        translateY(-50%);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(204, 170, 103, 0),
+            rgba(204, 170, 103, 0.95) 20%,
+            rgba(204, 170, 103, 0.95) 80%,
+            rgba(204, 170, 103, 0)
+        );
+}
+
+
+.ornament::after {
+
+    content: "◆";
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: #d0ad6c;
+
+    font-size: 8px;
+
+    text-shadow:
+        0 0 8px
+        rgba(208, 173, 108, 0.75);
+}
+
+
+/* =====================================================
+   ЛИНИЯ ПОД ЛЕВОЙ ФРАЗОЙ
+   ===================================================== */
+
+.speech-left .ornament {
+
+    width: 500px;
+
+    max-width: 70%;
+}
+
+
+/* =====================================================
+   МАГИЧЕСКАЯ ЗОНА
+   ===================================================== */
+
+.magic-welcome {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: 45%;
+
+    top: 67%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 45%;
+
+    height: 42%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =====================================================
+   ХРУСТАЛЬНАЯ СФЕРА
+   ===================================================== */
+
+.magic-sphere {
+
+    position: absolute;
+
+    width: 470px;
+
+    height: 470px;
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 35% 28%,
+            rgba(255, 255, 255, 0.11),
+            transparent 16%
+        ),
+
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(151, 83, 224, 0.18),
+            rgba(82, 31, 125, 0.10) 42%,
+            rgba(31, 12, 45, 0.06) 68%,
+            transparent 77%
+        );
+
+    border:
+        1px solid
+        rgba(190, 139, 241, 0.14);
+
+    box-shadow:
+
+        inset
+        0 0 45px
+        rgba(194, 135, 249, 0.10),
+
+        inset
+        0 0 95px
+        rgba(76, 29, 114, 0.16),
+
+        0 0 60px
+        rgba(117, 54, 174, 0.10);
+
+    animation:
+        sphereBreathe 6s ease-in-out infinite alternate;
+}
+
+
+.magic-sphere::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 7%;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(220, 180, 255, 0.12);
+
+    box-shadow:
+        0 0 25px
+        rgba(148, 89, 205, 0.08);
+}
+
+
+/* =====================================================
+   ЗОЛОТАЯ АУРА
+   ===================================================== */
+
+.magic-energy {
+
+    position: absolute;
+
+    inset: 17%;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            rgba(225, 178, 88, 0.13),
+            rgba(128, 64, 39, 0.06) 40%,
+            transparent 73%
+        );
+
+    filter:
+        blur(22px);
+
+    animation:
+        energyBreathe 5s ease-in-out infinite alternate;
+}
+
+
+/* =====================================================
+   ФИОЛЕТОВЫЙ РАЗЛОМ
+   ===================================================== */
+
+.main-rift {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 9%;
+
+    width: 150px;
+
+    height: 82%;
+
+    z-index: 12;
+
+    transform:
+        translateX(-50%)
+        rotate(7deg);
+}
+
+
+.rift-core {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 0;
+
+    width: 3px;
+
+    height: 100%;
+
+    transform:
+        translateX(-50%);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            transparent,
+            #7842bd 18%,
+            #b77df2 38%,
+            #eedcff 50%,
+            #965bd1 64%,
+            #613498 82%,
+            transparent
+        );
+
+    box-shadow:
+
+        0 0 10px
+        rgba(163, 101, 239, 0.75),
+
+        0 0 25px
+        rgba(130, 67, 204, 0.52),
+
+        0 0 45px
+        rgba(106, 49, 168, 0.28);
+
+    animation:
+        riftPulse 3.8s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   КРУПНЫЕ ТРЕЩИНЫ
+   ===================================================== */
+
+.fracture {
+
+    position: absolute;
+
+    width: 150px;
+
+    height: 150px;
+
+    z-index: 13;
+}
+
+
+.fracture::before,
+.fracture::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    height: 1px;
+
+    transform-origin:
+        left center;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(184, 135, 232, 0.95) 50%,
+            transparent
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(196, 143, 239, 0.42);
+}
+
+
+.fracture-1 {
+    left: 32%;
+    top: 23%;
+    transform: rotate(18deg);
+}
+
+.fracture-1::before {
+    width: 125px;
+    transform: rotate(-30deg);
+}
+
+.fracture-1::after {
+    width: 85px;
+    transform: rotate(18deg);
+}
+
+
+.fracture-2 {
+    left: 46%;
+    top: 34%;
+    transform: rotate(-20deg);
+}
+
+.fracture-2::before {
+    width: 115px;
+    transform: rotate(42deg);
+}
+
+.fracture-2::after {
+    width: 72px;
+    transform: rotate(-55deg);
+}
+
+
+.fracture-3 {
+    left: 37%;
+    top: 50%;
+    transform: rotate(10deg);
+}
+
+.fracture-3::before {
+    width: 120px;
+    transform: rotate(-52deg);
+}
+
+.fracture-3::after {
+    width: 92px;
+    transform: rotate(31deg);
+}
+
+
+.fracture-4 {
+    left: 48%;
+    top: 60%;
+    transform: rotate(-15deg);
+}
+
+.fracture-4::before {
+    width: 110px;
+    transform: rotate(27deg);
+}
+
+.fracture-4::after {
+    width: 75px;
+    transform: rotate(-34deg);
+}
+
+
+.fracture-5 {
+    left: 29%;
+    top: 41%;
+    transform: rotate(-35deg);
+}
+
+.fracture-5::before {
+    width: 105px;
+    transform: rotate(17deg);
+}
+
+.fracture-5::after {
+    width: 65px;
+    transform: rotate(-72deg);
+}
+
+
+.fracture-6 {
+    left: 51%;
+    top: 22%;
+    transform: rotate(31deg);
+}
+
+.fracture-6::before {
+    width: 92px;
+    transform: rotate(-16deg);
+}
+
+.fracture-6::after {
+    width: 62px;
+    transform: rotate(48deg);
+}
+
+
+/* =====================================================
+   МЕЛКИЕ ТРЕЩИНЫ
+   ===================================================== */
+
+.shard {
+
+    position: absolute;
+
+    z-index: 14;
+
+    width: 58px;
+
+    height: 1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #c89bef,
+            #d9b3f7,
+            transparent
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(213, 170, 242, 0.4);
+
+    opacity: 0.7;
+}
+
+
+.shard-1 {
+    left: 33%;
+    top: 36%;
+    transform: rotate(-19deg);
+}
+
+.shard-2 {
+    left: 57%;
+    top: 51%;
+    transform: rotate(21deg);
+}
+
+.shard-3 {
+    left: 38%;
+    top: 65%;
+    transform: rotate(34deg);
+}
+
+.shard-4 {
+    left: 56%;
+    top: 28%;
+    transform: rotate(-44deg);
+}
+
+.shard-5 {
+    left: 43%;
+    top: 22%;
+    transform: rotate(8deg);
+}
+
+.shard-6 {
+    left: 34%;
+    top: 56%;
+    transform: rotate(-63deg);
+}
+
+
+/* =====================================================
+   ЗОЛОТЫЕ ТРЕЩИНЫ
+   ===================================================== */
+
+.gold-fracture {
+
+    position: absolute;
+
+    z-index: 11;
+
+    width: 86px;
+
+    height: 1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #d0a763,
+            transparent
+        );
+
+    opacity: 0.55;
+
+    box-shadow:
+        0 0 6px
+        rgba(220, 181, 108, 0.35);
+}
+
+
+.gold-1 {
+    left: 20%;
+    top: 27%;
+    transform: rotate(-31deg);
+}
+
+.gold-2 {
+    right: 18%;
+    top: 37%;
+    transform: rotate(22deg);
+}
+
+.gold-3 {
+    left: 21%;
+    bottom: 28%;
+    transform: rotate(26deg);
+}
+
+.gold-4 {
+    right: 21%;
+    bottom: 29%;
+    transform: rotate(-25deg);
+}
+
+
+/* =====================================================
+   ЗВЁЗДЫ
+   ===================================================== */
+
+.magic-star {
+
+    position: absolute;
+
+    z-index: 18;
+
+    color: #f2d49a;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    text-shadow:
+
+        0 0 8px
+        rgba(246, 218, 155, 0.95),
+
+        0 0 18px
+        rgba(226, 170, 71, 0.65);
+
+    opacity: 0;
+
+    animation:
+        starFlash 3.4s infinite;
+}
+
+
+.star-1 {
+    left: 39%;
+    top: 32%;
+}
+
+.star-2 {
+    left: 59%;
+    top: 42%;
+    animation-delay: 0.8s;
+}
+
+.star-3 {
+    left: 43%;
+    top: 68%;
+    animation-delay: 1.6s;
+}
+
+.star-4 {
+    left: 61%;
+    top: 65%;
+    animation-delay: 2.1s;
+}
+
+.star-5 {
+    left: 35%;
+    top: 48%;
+    animation-delay: 2.6s;
+}
+
+.star-6 {
+    left: 64%;
+    top: 31%;
+    animation-delay: 1.2s;
+}
+
+
+/* =====================================================
+   ДОБРО ПОЖАЛОВАТЬ
+   ===================================================== */
+
+.welcome-title {
+
+    position: relative;
+
+    z-index: 20;
+
+    text-align: center;
+
+    color: #e8c47b;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            62px,
+            6.5vw,
+            108px
+        );
+
+    font-weight: 400;
+
+    line-height: 0.88;
+
+    letter-spacing: 0.01em;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #f5dca2 0%,
+            #d2a75d 36%,
+            #9f6d30 68%,
+            #644016 100%
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+
+        0 1px 0 #fff0c2,
+
+        0 3px 0 #704619,
+
+        0 7px 14px
+        rgba(0, 0, 0, 0.86),
+
+        0 0 20px
+        rgba(227, 176, 78, 0.22);
+}
+
+
+/* =====================================================
+   ПРАВАЯ ФРАЗА
+   ===================================================== */
+
+.speech-right {
+
+    right: 7%;
+
+    bottom: 16%;
+
+    width: 34%;
+
+    text-align: right;
+
+    animation-delay:
+        0.35s;
+}
+
+
+.speech-right p {
+
+    display: inline-block;
+
+    width: max-content;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    white-space: nowrap;
+
+    color: #eee3d3;
+
+    font-size:
+        clamp(
+            20px,
+            1.5vw,
+            27px
+        );
+
+    font-weight: 500;
+
+    font-style: italic;
+
+    line-height: 1.3;
+}
+
+
+.speech-right .ornament {
+
+    width: 400px;
+
+    max-width: 100%;
+
+    margin-left: auto;
+}
+
+
+/* =====================================================
+   ПОДПИСЬ
+   ===================================================== */
+
+.master-label {
+
+    margin-top: 18px;
+
+    color: #b8aa93;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+
+    letter-spacing: 0.18em;
+
+    text-transform: uppercase;
+}
+
+
+.master-name {
+
+    margin-top: 4px;
+
+    color: #d3ae6c;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            31px,
+            2.5vw,
+            46px
+        );
+
+    font-weight: 400;
+}
+
+
+/* =====================================================
+   ПУТЬ ПРОДОЛЖАЕТСЯ
+   ===================================================== */
+
+.scroll-hint {
+
+    position: absolute;
+
+    z-index: 25;
+
+    left: 50%;
+
+    bottom: 3%;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color:
+        rgba(
+            236,
+            226,
+            207,
+            0.9
+        );
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size: 11px;
+
+    letter-spacing: 0.3em;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 2px 6px #000;
+}
+
+
+.arrow {
+
+    width: 18px;
+
+    height: 18px;
+
+    border-right:
+        1px solid #d0ad6c;
+
+    border-bottom:
+        1px solid #d0ad6c;
+
+    transform:
+        rotate(45deg);
+
+    animation:
+        arrowMove 1.8s infinite;
+}
+
+
+/* =====================================================
+   ЧЕРНИЛЬНЫЙ МОСТ
+   ===================================================== */
+
+/* =====================================================
+   ОСНОВНЫЕ ПОТЁКИ
+   ===================================================== */
+
+/* =====================================================
+   ФОРМЫ
+   ===================================================== */
+
+/* =====================================================
+   ДВИЖЕНИЕ ПОТЁКОВ
+   ===================================================== */
+
+50% {
+
+        transform:
+            translateY(24px)
+            scaleX(1.03)
+            rotate(2deg);
+    }
+
+    100% {
+
+        transform:
+            translateY(55px)
+            scaleX(0.97)
+            rotate(-1deg);
+    }
+}
+
+
+/* =====================================================
+   ВТОРАЯ СТРАНИЦА
+   ===================================================== */
+
+.about-section {
+
+    position: relative;
+
+    min-height: 900px;
+
+    padding:
+        170px 25px
+        180px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            ellipse at center top,
+            #181319 0%,
+            #0d0b0f 35%,
+            #050506 75%,
+            #030304 100%
+        );
+}
+
+
+/* =====================================================
+   СВЕЧЕНИЕ СВЕРХУ
+   ===================================================== */
+
+.about-section-glow {
+
+    position: absolute;
+
+    left: 10%;
+
+    right: 10%;
+
+    top: 0;
+
+    height: 260px;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            rgba(106, 74, 103, 0.11),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   КОНТЕНТ
+   ===================================================== */
+
+.section-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 850px;
+}
+
+
+.section-decoration {
+
+    margin-bottom: 18px;
+
+    color: #c6a66a;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size: 28px;
+}
+
+
+.section-label {
+
+    margin-bottom: 18px;
+
+    color: #ab9772;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size: 12px;
+
+    letter-spacing: 0.3em;
+
+    text-transform: uppercase;
+}
+
+
+.about-section h2 {
+
+    margin: 0;
+
+    color: #e5d9c3;
+
+    font-family:
+        "Forum",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            31px,
+            4vw,
+            55px
+        );
+
+    font-weight: 400;
+
+    line-height: 1.2;
+}
+
+
+.section-line {
+
+    width: 190px;
+
+    height: 1px;
+
+    margin:
+        30px auto;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #b5965e,
+            transparent
+        );
+}
+
+
+.about-section p {
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    color: #b0a99e;
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   АНИМАЦИИ
+   ===================================================== */
+
+@keyframes speechAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(22px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes sphereBreathe {
+
+    from {
+
+        transform:
+            scale(0.97);
+
+        opacity: 0.62;
+    }
+
+    to {
+
+        transform:
+            scale(1.03);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes energyBreathe {
+
+    from {
+
+        transform:
+            scale(0.94);
+
+        opacity: 0.35;
+    }
+
+    to {
+
+        transform:
+            scale(1.06);
+
+        opacity: 0.85;
+    }
+}
+
+
+@keyframes riftPulse {
+
+    0%,
+    100% {
+
+        opacity: 0.68;
+
+        filter:
+            brightness(0.9);
+
+        box-shadow:
+
+            0 0 10px
+            rgba(163, 101, 239, 0.48),
+
+            0 0 22px
+            rgba(130, 67, 204, 0.34);
+    }
+
+    50% {
+
+        opacity: 1;
+
+        filter:
+            brightness(1.2);
+
+        box-shadow:
+
+            0 0 18px
+            rgba(184, 129, 255, 0.85),
+
+            0 0 32px
+            rgba(130, 67, 204, 0.58);
+    }
+}
+
+
+@keyframes starFlash {
+
+    0%,
+    55%,
+    100% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.2)
+            rotate(0deg);
+    }
+
+    62% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.35)
+            rotate(20deg);
+    }
+
+    73% {
+
+        opacity: 0.3;
+
+        transform:
+            scale(0.8)
+            rotate(60deg);
+    }
+
+    82% {
+
+        opacity: 0.95;
+
+        transform:
+            scale(1)
+            rotate(100deg);
+    }
+
+    88% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-9px)
+            scale(0.2)
+            rotate(140deg);
+    }
+}
+
+
+@keyframes arrowMove {
+
+    0%,
+    100% {
+
+        transform:
+            rotate(45deg)
+            translate(-2px, -2px);
+
+        opacity: 0.35;
+    }
+
+    50% {
+
+        transform:
+            rotate(45deg)
+            translate(5px, 5px);
+
+        opacity: 1;
+    }
+}
+
+
+/* =====================================================
+   МОБИЛЬНАЯ ВЕРСИЯ
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    .hero {
+
+        min-height: 100vh;
+
+        min-height: 100svh;
+    }
+
+
+    .hero-image {
+
+        position: absolute;
+
+        inset: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+        object-position:
+            52% 42%;
+    }
+
+
+    .hero-overlay {
+
+        background:
+
+            linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.34),
+                rgba(0, 0, 0, 0.04) 28%,
+                rgba(0, 0, 0, 0.18) 54%,
+                rgba(0, 0, 0, 0.72) 100%
+            );
+    }
+
+
+    .speech-left {
+
+        top: 7%;
+
+        left: 7%;
+
+        width: 86%;
+
+        text-align: center;
+    }
+
+
+    .speech-left h1 {
+
+        display: inline-block;
+
+        width: auto;
+
+        max-width: 100%;
+
+        white-space: normal;
+
+        font-size:
+            clamp(
+                22px,
+                6vw,
+                31px
+            );
+
+        line-height: 1.05;
+    }
+
+
+    .speech-left p {
+
+        max-width: 90%;
+
+        margin:
+            13px auto 0;
+
+        font-size:
+            clamp(
+                14px,
+                3.8vw,
+                17px
+            );
+
+        line-height: 1.35;
+    }
+
+
+    .speech-left .ornament {
+
+        width: 70%;
+
+        max-width: 300px;
+
+        margin:
+            11px auto 0;
+    }
+
+
+    .magic-welcome {
+
+        left: 50%;
+
+        top: 61%;
+
+        width: 76%;
+
+        height: 40%;
+    }
+
+
+    .magic-sphere {
+
+        width:
+            min(
+                350px,
+                72vw
+            );
+
+        height:
+            min(
+                350px,
+                72vw
+            );
+    }
+
+
+    .welcome-title {
+
+        font-size:
+            clamp(
+                43px,
+                10vw,
+                64px
+            );
+
+        line-height: 0.88;
+    }
+
+
+    .speech-right {
+
+        right: 7%;
+
+        bottom: 10%;
+
+        width: 86%;
+
+        text-align: center;
+    }
+
+
+    .speech-right p {
+
+        display: block;
+
+        width: auto;
+
+        max-width: 100%;
+
+        white-space: normal;
+
+        font-size:
+            clamp(
+                16px,
+                4.2vw,
+                20px
+            );
+
+        line-height: 1.2;
+    }
+
+
+    .speech-right .ornament {
+
+        width: 65%;
+
+        max-width: 280px;
+
+        margin:
+            10px auto 0;
+    }
+
+
+    .master-label {
+
+        margin-top: 10px;
+
+        font-size: 10px;
+    }
+
+
+    .master-name {
+
+        margin-top: 2px;
+
+        font-size:
+            clamp(
+                24px,
+                7vw,
+                32px
+            );
+    }
+
+
+    .scroll-hint {
+
+        bottom: 2%;
+
+        font-size: 8px;
+
+        letter-spacing: 0.22em;
+
+        gap: 10px;
+    }
+
+
+    .arrow {
+
+        width: 14px;
+
+        height: 14px;
+    }
+
+
+    /* ---------------------------------------------
+       ЧЕРНИЛЬНЫЙ МОСТ
+       --------------------------------------------- */
+
+    .about-section {
+
+        min-height: 760px;
+
+        padding:
+            110px 22px
+            130px;
+    }
+
+
+    .about-section h2 {
+
+        font-size:
+            clamp(
+                29px,
+                8vw,
+                40px
+            );
+    }
+
+
+    .about-section p {
+
+        font-size: 17px;
+
+        line-height: 1.6;
+    }
+}
+
+
+/* =====================================================
+   ОЧЕНЬ МАЛЕНЬКИЙ ТЕЛЕФОН
+   ===================================================== */
+
+@media (max-width: 400px) {
+
+    .speech-left {
+
+        top: 6%;
+
+        left: 5%;
+
+        width: 90%;
+    }
+
+
+    .speech-left h1 {
+
+        font-size: 21px;
+    }
+
+
+    .speech-left p {
+
+        font-size: 13px;
+
+        max-width: 95%;
+    }
+
+
+    .magic-welcome {
+
+        top: 60%;
+
+        width: 80%;
+
+        height: 39%;
+    }
+
+
+    .magic-sphere {
+
+        width: 285px;
+
+        height: 285px;
+    }
+
+
+    .welcome-title {
+
+        font-size: 39px;
+    }
+
+
+    .speech-right {
+
+        bottom: 10%;
+    }
+
+
+    .speech-right p {
+
+        font-size: 15px;
+    }
+
+
+    .about-section {
+
+        min-height: 700px;
+
+        padding:
+            100px 18px
+            120px;
+    }
+}
