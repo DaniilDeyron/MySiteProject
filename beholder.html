@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бехолдер — 10 живых глаз</title>
+
+<link rel="stylesheet" href="beholder.css">
+</head>
+
+<body>
+
+<div class="cursor-orb" id="cursorOrb"></div>
+
+<div class="page">
+
+<header class="header">
+
+    <div class="eyebrow">
+        Полная версия · 10 глаз
+    </div>
+
+    <h1>
+        Он следит за каждым твоим движением
+    </h1>
+
+    <p>
+        Здесь используются четыре твои готовые радужки —
+        без удаления чёрных зрачков. Они повторяются между
+        десятью глазами, чтобы каждый отросток был заполнен.
+        Наведение на вкладку переключает бехолдера в состояние чтения.
+    </p>
+
+</header>
+
+
+<section class="stage" id="stage">
+
+    <div class="orbit" id="orbit"></div>
+
+
+    <div class="beholder" id="beholder">
+
+        <img
+            class="base-body"
+            id="baseBody"
+            alt="Бехолдер — обычное состояние"
+        >
+
+        <img
+            class="reading-body"
+            id="readingBody"
+            alt="Бехолдер — состояние чтения"
+        >
+
+        <img
+            class="stories-body"
+            id="storiesBody"
+            alt="Бехолдер — навстречу к историям"
+        src="assets/beholder/beholder-stories.png">
+
+
+        <div class="custom-eyes">
+
+            
+        <div class="eye-slot eye1" aria-hidden="true">
+            <img class="eye-image eye-purple" src="assets/beholder/eye-purple.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye2" aria-hidden="true">
+            <img class="eye-image eye-green" src="assets/beholder/eye-green.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye3" aria-hidden="true">
+            <img class="eye-image eye-red" src="assets/beholder/eye-red.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye4" aria-hidden="true">
+            <img class="eye-image eye-blue" src="assets/beholder/eye-blue.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye5" aria-hidden="true">
+            <img class="eye-image eye-purple" src="assets/beholder/eye-purple.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye6" aria-hidden="true">
+            <img class="eye-image eye-red" src="assets/beholder/eye-red.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye7" aria-hidden="true">
+            <img class="eye-image eye-green" src="assets/beholder/eye-green.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye8" aria-hidden="true">
+            <img class="eye-image eye-blue" src="assets/beholder/eye-blue.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye9" aria-hidden="true">
+            <img class="eye-image eye-red" src="assets/beholder/eye-red.png" alt="">
+        </div>
+    
+        <div class="eye-slot eye10" aria-hidden="true">
+            <img class="eye-image eye-green" src="assets/beholder/eye-green.png" alt="">
+        </div>
+    
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================
+         ВКЛАДКИ
+         ================================================ -->
+
+    <button
+        class="node n1"
+        data-title="Обо мне"
+        data-text="История мастера, его путь к настольным играм и подход к созданию приключений."
+        data-cta="Открыть раздел"
+    >
+
+        <div class="node-title">
+            Обо мне
+        </div>
+
+        <div class="node-sub">
+            кто стоит за играми
+        </div>
+
+        <div class="node-hint">
+            узнать больше →
+        </div>
+
+    </button>
+
+
+    <button
+        class="node n2"
+        data-title="Отзывы"
+        data-text="Впечатления игроков и истории тех, кто уже побывал за моим игровым столом."
+        data-cta="Читать отзывы"
+    >
+
+        <div class="node-title">
+            Отзывы
+        </div>
+
+        <div class="node-sub">
+            слова игроков
+        </div>
+
+        <div class="node-hint">
+            посмотреть →
+        </div>
+
+    </button>
+
+
+    <button
+        class="node n3"
+        data-title="Игры"
+        data-text="Официальные приключения по книгам, авторские кампании и отдельные игровые вечера."
+        data-cta="Смотреть игры"
+    >
+
+        <div class="node-title">
+            Игры
+        </div>
+
+        <div class="node-sub">
+            во что можно сыграть
+        </div>
+
+        <div class="node-hint">
+            выбрать →
+        </div>
+
+    </button>
+
+
+    <button
+        class="node n4"
+        data-title="Расписание"
+        data-text="Ближайшие даты, свободные места и следующая возможность присоединиться к игре."
+        data-cta="Открыть расписание"
+    >
+
+        <div class="node-title">
+            Расписание
+        </div>
+
+        <div class="node-sub">
+            когда играем
+        </div>
+
+        <div class="node-hint">
+            посмотреть даты →
+        </div>
+
+    </button>
+
+
+    <button
+        class="node n5"
+        data-title="Контакты"
+        data-text="Связаться с мастером, задать вопрос или узнать, как присоединиться к игре."
+        data-cta="Связаться"
+    >
+
+        <div class="node-title">
+            Контакты
+        </div>
+
+        <div class="node-sub">
+            начать разговор
+        </div>
+
+        <div class="node-hint">
+            перейти →
+        </div>
+
+    </button>
+
+
+    <!-- ================================================
+         СВОДКА
+         ================================================ -->
+
+    <button
+        class="story-launch"
+        id="storyLaunch"
+    >
+        Навстречу к историям!
+    </button>
+
+    <div
+        class="detail"
+        id="detail"
+    >
+
+        <div class="detail-title">
+            Выбери направление
+        </div>
+
+        <div class="detail-text">
+            Наведи на любую вкладку.
+            Глаза бехолдера последят за курсором,
+            а выбранный раздел он начнёт читать.
+        </div>
+
+        <div class="detail-cta">
+            исследовать →
+        </div>
+
+    </div>
+
+
+    <div class="state">
+
+        <strong id="stateTitle">
+            Он наблюдает
+        </strong>
+
+        <span id="stateText">
+            Все десять глаз заполнены.
+            Двигай мышью — зрачки последуют за ней.
+        </span>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<script src="beholder.js"></script>
+
+</body>
+</html>
